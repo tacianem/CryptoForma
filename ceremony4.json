@@ -1,0 +1,57 @@
+{ "db": [
+
+
+{"peer1":"u_c", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"s", "msg":"email_server_url"},
+
+{"peer1":"u_c", "layer":"L2", "capab1":"E", "att1":"DA2", "peer2":"s", "msg":"email_server_url"},
+
+{"peer1":"u_c", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"s", "msg":"encr(email_server_url,public_server)"},
+
+
+
+{"peer1":"s", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"u_c", "msg":"encr(email_log_in_page,public_server)"},
+
+{"peer1":"s", "layer":"L2", "capab1":"E", "att1":"DA2", "peer2":"u_c", "msg":"email_log_in_page"},
+
+{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_c", "msg":"email_log_in_page"},
+
+
+
+{"peer1":"u_c", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"s", "msg":"pair(email,password)"},
+
+{"peer1":"u_c", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"s", "msg":"pair(email,password)"},
+
+{"peer1":"u_c", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"s", "msg":"encr(pair(email,password),public_server)"},
+
+
+
+{"peer1":"s", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"u_c", "msg":"encr(2step_verification,public_server)"},
+
+{"peer1":"s", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"u_c", "msg":"2step_verification"},
+
+{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_c", "msg":"2step_verification"},
+
+
+
+{"peer1":"s", "layer":"L2", "capab1":"DY", "att1":"DA3", "peer2":"u_p", "msg":"code_message"},
+
+{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_p", "msg":"code_message"},
+
+
+
+{"peer1":"u_c", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"s", "msg":"authentication_code"},
+
+{"peer1":"u_c", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"s", "msg":"authentication_code"},
+
+{"peer1":"u_c", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"s", "msg":"encr(authentication_code,public_server)"},
+
+
+
+{"peer1":"s", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"u_c", "msg":"encr(users_email_page,public_server)"},
+
+{"peer1":"s", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"u_c", "msg":"users_email_page"},
+
+{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_c", "msg":"users_email_page"}
+
+
+]}
