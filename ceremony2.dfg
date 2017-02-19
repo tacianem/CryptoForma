@@ -1,16 +1,16 @@
 begin_problem(formal_model).
 
 list_of_descriptions.
-name({*SPASS for Dropbox Ceremony*}).
+name({*SPASS for DA Model*}).
 author({*Taciane*}).
 status(satisfiable).
-description({* Logic Model for Security Ceremonies *}). 
+description({* Logic Model for Security Ceremonies *}).
 end_of_list.
 
 list_of_symbols.
 functions[
 
-%Ceremony-specific constants, varies for each ceremory
+%Ceremony-specific constants
 (u_c,0),
 (s,0),
 (u_p,0),
@@ -34,13 +34,14 @@ functions[
 ].
 
 predicates[
-(Agent,1), 
+(Agent,1),
 (L3_Sender,3), %(sender, receiver, message)
-(L2_Sender,3), 
-(L1_Sender,3), 
+(L2_Sender,3),
+(L1_Sender,3),
 (Attacker,1),
 (L1_WasBlocked,3), %(receiver, message, attacker)
 (L2_WasBlocked,3),
+(L3_WasBlocked,3),
 (Knows,2), %(agent, knowledge)
 (KnowsPair,2),
 (KnowsEncr,2),
@@ -91,7 +92,7 @@ list_of_formulae(axioms).
 %---- Atomic Break Down (A) ------------------------------------------
 
 formula( forall([xa, xm1, xm2],
-	implies( 
+	implies(
 		and(
 			Agent(xa),
 			KnowsPair(xa,pair(xm1,xm2))
@@ -101,13 +102,13 @@ formula( forall([xa, xm1, xm2],
 			Knows(xa, xm2)
 		)
 	)),
-Atomic_break_down_pair). 
+Atomic_break_down_pair).
 
 
 %---- Concatenate ----------------------------------------------------
 
 formula( forall([xa, xm1, xm2],
-	implies( 
+	implies(
 		and(
 			Agent(xa),
 			Knows(xa, xm1),
@@ -115,12 +116,12 @@ formula( forall([xa, xm1, xm2],
 		),
 		KnowsPair(xa,pair(xm1,xm2))
 	)),
-Concatenate_pair). 
+Concatenate_pair).
 
-	
+
 %---- Communication --------------------------------------------------
 
-formula( forall([xa, xm, xkey], 
+formula( forall([xa, xm, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -133,7 +134,7 @@ formula( forall([xa, xm, xkey],
 Encryption).
 
 
-formula( forall([xa, xm, xkey], 
+formula( forall([xa, xm, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -146,7 +147,7 @@ formula( forall([xa, xm, xkey],
 Decryption).
 
 
-formula( forall([xa, xm1,xm2, xkey], 
+formula( forall([xa, xm1,xm2, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -159,7 +160,7 @@ formula( forall([xa, xm1,xm2, xkey],
 Encryption_Pair).
 
 
-formula( forall([xa, xm1, xm2, xkey], 
+formula( forall([xa, xm1, xm2, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -175,7 +176,7 @@ Decryption_Pair).
 % ---------------------------------------------------------------------
 
 %Eavesdrop
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -195,7 +196,7 @@ formula( forall([xa, xb, xatt, xm],
 Eavesdrop_L3).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2], 
+formula( forall([xa, xb, xatt, xm1, xm2],
 	implies(
 		and(
 			Agent(xa),
@@ -215,7 +216,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 Eavesdrop_L3_Pair).
 
 
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -235,7 +236,7 @@ formula( forall([xa, xb, xatt, xm],
 Eavesdrop_L2).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2], 
+formula( forall([xa, xb, xatt, xm1, xm2],
 	implies(
 		and(
 			Agent(xa),
@@ -255,7 +256,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 Eavesdrop_L2_Pair).
 
 
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -263,7 +264,7 @@ formula( forall([xa, xb, xatt, xm],
 			Honest(xa),
 			Honest(xb),
 			Attacker(xatt),
-			Knows(xa, xm), 
+			Knows(xa, xm),
 			L1_E(sent(xa,xb,xm),xatt)
 		),
 		and(
@@ -275,7 +276,7 @@ formula( forall([xa, xb, xatt, xm],
 Eavesdrop_L1).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2], 
+formula( forall([xa, xb, xatt, xm1, xm2],
 	implies(
 		and(
 			Agent(xa),
@@ -283,7 +284,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 			Honest(xa),
 			Honest(xb),
 			Attacker(xatt),
-			KnowsPair(xa, pair(xm1,xm2)), 
+			KnowsPair(xa, pair(xm1,xm2)),
 			L1_E(sent(xa,xb,pair(xm1,xm2)),xatt)
 		),
 		and(
@@ -295,7 +296,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 Eavesdrop_L1_Pair).
 
 
-formula( forall([xa, xb, xatt, xm, xkey], 
+formula( forall([xa, xb, xatt, xm, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -317,7 +318,7 @@ formula( forall([xa, xb, xatt, xm, xkey],
 Eavesdrop_L1_Encr).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2, xkey], 
+formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -342,7 +343,47 @@ Eavesdrop_L1_Encr_Pair).
 
 %Block
 
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
+	implies(
+		and(
+			Agent(xa),
+			Agent(xb),
+			Honest(xa),
+			Honest(xb),
+			Attacker(xatt),
+			Knows(xa, xm),
+			L3_B(sent(xa,xb,xm),xatt)
+		),
+		and(
+			L3_WasBlocked(xb, xm, xatt),
+			Knows(xatt,xm),
+			L3_Sender(xa,xb,xm)
+		)
+	)),
+Block_L3).
+
+
+formula( forall([xa, xb, xatt, xm1, xm2],
+	implies(
+		and(
+			Agent(xa),
+			Agent(xb),
+			Honest(xa),
+			Honest(xb),
+			Attacker(xatt),
+			KnowsPair(xa, pair(xm1,xm2)),
+			L3_B(sent(xa,xb,pair(xm1,xm2)),xatt)
+		),
+		and(
+			L3_WasBlocked(xb, pair(xm1,xm2), xatt),
+			KnowsPair(xatt,pair(xm1,xm2)),
+			L3_Sender(xa,xb,pair(xm1,xm2))
+		)
+	)),
+Block_L3_Pair).
+
+
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -353,7 +394,7 @@ formula( forall([xa, xb, xatt, xm],
 			Knows(xa, xm),
 			L2_B(sent(xa,xb,xm),xatt)
 		),
-		and(	
+		and(
 			L2_WasBlocked(xb, xm, xatt),
 			Knows(xatt,xm),
 			L2_Sender(xa,xb,xm)
@@ -362,7 +403,7 @@ formula( forall([xa, xb, xatt, xm],
 Block_L2).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2], 
+formula( forall([xa, xb, xatt, xm1, xm2],
 	implies(
 		and(
 			Agent(xa),
@@ -373,7 +414,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 			KnowsPair(xa, pair(xm1,xm2)),
 			L2_B(sent(xa,xb,pair(xm1,xm2)),xatt)
 		),
-		and(	
+		and(
 			L2_WasBlocked(xb, pair(xm1,xm2), xatt),
 			KnowsPair(xatt,pair(xm1,xm2)),
 			L2_Sender(xa,xb,pair(xm1,xm2))
@@ -382,7 +423,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 Block_L2_Pair).
 
 
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -393,7 +434,7 @@ formula( forall([xa, xb, xatt, xm],
 			Knows(xa, xm),
 			L1_B(sent(xa,xb,xm),xatt)
 		),
-		and(	
+		and(
 			L1_WasBlocked(xb, xm, xatt),
 			Knows(xatt,xm),
 			L1_Sender(xa,xb,xm)
@@ -402,7 +443,7 @@ formula( forall([xa, xb, xatt, xm],
 Block_L1).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2], 
+formula( forall([xa, xb, xatt, xm1, xm2],
 	implies(
 		and(
 			Agent(xa),
@@ -413,7 +454,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 			KnowsPair(xa, pair(xm1,xm2)),
 			L1_B(sent(xa,xb,pair(xm1,xm2)),xatt)
 		),
-		and(	
+		and(
 			L1_WasBlocked(xb, pair(xm1,xm2), xatt),
 			KnowsPair(xatt,pair(xm1,xm2)),
 			L1_Sender(xa,xb,pair(xm1,xm2))
@@ -422,7 +463,7 @@ formula( forall([xa, xb, xatt, xm1, xm2],
 Block_L1_Pair).
 
 
-formula( forall([xa, xb, xatt, xm, xkey], 
+formula( forall([xa, xb, xatt, xm, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -435,7 +476,7 @@ formula( forall([xa, xb, xatt, xm, xkey],
 			Key(xkey),
 			L1_B(sent(xa,xb,encr(xm,xkey)),xatt)
 		),
-		and(	
+		and(
 			L1_WasBlocked(xb, encr(xm,xkey), xatt),
 			KnowsEncr(xatt,encr(xm,xkey)),
 			L1_Sender(xa,xb,encr(xm,xkey))
@@ -444,7 +485,7 @@ formula( forall([xa, xb, xatt, xm, xkey],
 Block_L1_Encr).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2, xkey], 
+formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -457,7 +498,7 @@ formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 			Key(xkey),
 			L1_B(sent(xa,xb,encr(pair(xm1,xm2),xkey)),xatt)
 		),
-		and(	
+		and(
 			L1_WasBlocked(xb, encr(pair(xm1,xm2),xkey), xatt),
 			KnowsEncr(xatt,encr(pair(xm1,xm2),xkey)),
 			L1_Sender(xa,xb,encr(pair(xm1,xm2),xkey))
@@ -642,7 +683,7 @@ formula( forall ([xatt, xb, xm],
 			Knows(xb,xm),
 			L3_Sender(xatt,xb,xm)
 		)
-	)), 
+	)),
 Initiate_L3).
 
 
@@ -659,7 +700,7 @@ formula( forall ([xatt, xb, xm1, xm2],
 			KnowsPair(xb,pair(xm1,xm2)),
 			L3_Sender(xatt,xb,pair(xm1,xm2))
 		)
-	)), 
+	)),
 Initiate_L3_Pair).
 
 
@@ -676,7 +717,7 @@ formula( forall ([xatt, xb, xm],
 			Knows(xb,xm),
 			L2_Sender(xatt,xb,xm)
 		)
-	)), 
+	)),
 Initiate_L2).
 
 
@@ -693,7 +734,7 @@ formula( forall ([xatt, xb, xm1, xm2],
 			KnowsPair(xb,pair(xm1,xm2)),
 			L2_Sender(xatt,xb,pair(xm1,xm2))
 		)
-	)), 
+	)),
 Initiate_L2_Pair).
 
 
@@ -710,7 +751,7 @@ formula( forall ([xatt, xb, xm],
 			Knows(xb,xm),
 			L1_Sender(xatt,xb,xm)
 		)
-	)), 
+	)),
 Initiate_L1).
 
 
@@ -727,7 +768,7 @@ formula( forall ([xatt, xb, xm1, xm2],
 			KnowsPair(xb,pair(xm1,xm2)),
 			L1_Sender(xatt,xb,pair(xm1,xm2))
 		)
-	)), 
+	)),
 Initiate_L1_Pair).
 
 
@@ -746,7 +787,7 @@ formula( forall ([xatt, xb, xm, xkey],
 			KnowsEncr(xb,encr(xm,xkey)),
 			L1_Sender(xatt,xb,encr(xm,xkey))
 		)
-	)), 
+	)),
 Initiate_L1_Encr).
 
 
@@ -765,14 +806,14 @@ formula( forall ([xatt, xb, xm1, xm2, xkey],
 			KnowsEncr(xb,encr(pair(xm1,xm2),xkey)),
 			L1_Sender(xatt,xb,encr(pair(xm1,xm2),xkey))
 		)
-	)), 
+	)),
 Initiate_L1_Encr_Pair).
 
 % ------------------------------------------------------------------------
 
 %Crypto - nothing more than Eavesdrop and Decrypt
 
-formula( forall([xa, xb, xatt, xm, xkey], 
+formula( forall([xa, xb, xatt, xm, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -781,20 +822,21 @@ formula( forall([xa, xb, xatt, xm, xkey],
 			Honest(xb),
 			Attacker(xatt),
 			Knows(xa,xm),
+			Key(xkey),
 			Knows(xa,xkey),
 			Knows(xatt,xkey),
-			Key(xkey),
 			L3_C(sent(xa,xb,encr(xm,xkey)),xatt)
 		),
 		and(
 			Knows(xatt, xm),
+			KnowsEncr(xb,encr(xm,xkey)),
 			L3_Sender(xa,xb,xm)
 		)
 	)),
 Crypto_L3).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2, xkey], 
+formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -810,13 +852,14 @@ formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 		),
 		and(
 			KnowsPair(xatt, pair(xm1,xm2)),
+			KnowsEncr(xb,encr(pair(xm1,xm2),xkey)),
 			L3_Sender(xa,xb,pair(xm1,xm2))
 		)
 	)),
 Crypto_L3_Pair).
 
 
-formula( forall([xa, xb, xatt, xm, xkey], 
+formula( forall([xa, xb, xatt, xm, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -832,13 +875,14 @@ formula( forall([xa, xb, xatt, xm, xkey],
 		),
 		and(
 			Knows(xatt, xm),
+			KnowsEncr(xb,encr(xm,xkey)),
 			L2_Sender(xa,xb,xm)
 		)
 	)),
 Crypto_L2).
 
 
-formula( forall([xa, xb, xatt, xm, xkey], 
+formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -847,20 +891,21 @@ formula( forall([xa, xb, xatt, xm, xkey],
 			Honest(xb),
 			Attacker(xatt),
 			Knows(xa,xkey),
-			KnowsPair(xa,xm),
+			KnowsPair(xa,pair(xm1,xm2)),
 			Knows(xatt,xkey),
 			Key(xkey),
-			L2_C(sent(xa,xb,encr(xm,xkey)),xatt)
+			L2_C(sent(xa,xb,encr(pair(xm1,xm2),xkey)),xatt)
 		),
 		and(
-			KnowsPair(xatt, xm),
-			L2_Sender(xa,xb,xm)
+			KnowsPair(xatt, pair(xm1,xm2)),
+			KnowsEncr(xb,encr(pair(xm1,xm2),xkey)),
+			L2_Sender(xa,xb,pair(xm1,xm2))
 		)
 	)),
 Crypto_L2_Pair).
 
 
-formula( forall([xa, xb, xatt, xm, xkey], 
+formula( forall([xa, xb, xatt, xm, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -876,13 +921,14 @@ formula( forall([xa, xb, xatt, xm, xkey],
 		),
 		and(
 			Knows(xatt, xm),
+			KnowsEncr(xb,encr(xm,xkey)),
 			L1_Sender(xa,xb,xm)
 		)
 	)),
 Crypto_L1).
 
 
-formula( forall([xa, xb, xatt, xm1, xm2, xkey], 
+formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 	implies(
 		and(
 			Agent(xa),
@@ -898,6 +944,7 @@ formula( forall([xa, xb, xatt, xm1, xm2, xkey],
 		),
 		and(
 			KnowsPair(xatt, pair(xm1,xm2)),
+			KnowsEncr(xb,encr(pair(xm1,xm2),xkey)),
 			L1_Sender(xa,xb,pair(xm1,xm2))
 		)
 	)),
@@ -918,14 +965,16 @@ formula( forall ([xatt, xa, xb, xm1, xm2],
 			Knows(xa, xm1),
 			Knows(xa, xm2),
 			L3_O(sent(xa, xb, xm1), xatt),
-			implies(L3_O(sent(xa, xb, xm1), xatt), 
+			implies(
+				L3_O(sent(xa, xb, xm1), xatt),
 				L3_O(sent(xa, xb, xm2), xatt))
 		),
 		and(
 			Knows(xatt,xm1),
 			Knows(xatt,xm2),
 			Knows(xb,xm2),
-			implies(Knows(xb, xm2), 
+			implies(
+				Knows(xb, xm2),
 				Knows(xb, xm1)),
 			L3_Sender(xa,xb,xm1),
 			L3_Sender(xa,xb,xm2)
@@ -945,14 +994,16 @@ formula( forall ([xatt, xa, xb, xm1, xm2],
 			Knows(xa, xm1),
 			Knows(xa, xm2),
 			L2_O(sent(xa, xb, xm1), xatt),
-			implies(L2_O(sent(xa, xb, xm1), xatt), 
+			implies(
+				L2_O(sent(xa, xb, xm1), xatt),
 				L2_O(sent(xa, xb, xm2), xatt))
 		),
 		and(
 			Knows(xatt,xm1),
 			Knows(xatt,xm2),
 			Knows(xb,xm2),
-			implies(Knows(xb, xm2), 
+			implies(
+				Knows(xb, xm2),
 				Knows(xb, xm1)),
 			L2_Sender(xa,xb,xm1),
 			L2_Sender(xa,xb,xm2)
@@ -972,14 +1023,16 @@ formula( forall ([xatt, xa, xb, xm1, xm2],
 			Knows(xa, xm1),
 			Knows(xa, xm2),
 			L1_O(sent(xa, xb, xm1), xatt),
-			implies(L1_O(sent(xa, xb, xm1), xatt), 
+			implies(
+				L1_O(sent(xa, xb, xm1), xatt),
 				L1_O(sent(xa, xb, xm2), xatt))
 		),
 		and(
 			Knows(xatt,xm1),
 			Knows(xatt,xm2),
 			Knows(xb,xm2),
-			implies(Knows(xb, xm2), 
+			implies(
+				Knows(xb, xm2),
 				Knows(xb, xm1)),
 			L1_Sender(xa,xb,xm1),
 			L1_Sender(xa,xb,xm2)
@@ -991,7 +1044,7 @@ ReOrder_L1).
 % ----------------------------------------------------------------------------------------
 
 %Fabricate
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -1006,13 +1059,13 @@ formula( forall([xa, xb, xatt, xm],
 		and(
 			L3_Sender(xa,xb,xm),
 			Knows(xatt,xm),
-			Knows(xatt, hash(xm)) 
+			Knows(xatt, hash(xm))
 		)
 	)),
 Fabricate_L3).
 
 
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -1033,7 +1086,7 @@ formula( forall([xa, xb, xatt, xm],
 Fabricate_L2).
 
 
-formula( forall([xa, xb, xatt, xm], 
+formula( forall([xa, xb, xatt, xm],
 	implies(
 		and(
 			Agent(xa),
@@ -1069,6 +1122,7 @@ formula(Honest(s),honest_s).
 formula(Agent(u_p),agent_u_p).
 formula(Honest(u_p),honest_u_p).
 formula(Key(public_server),key_public_server).
+
 
 
 formula(Knows(u_c,email_server_url),agent_u_c_knows_email_server_url).
@@ -1327,49 +1381,21 @@ end_of_list.
 
 list_of_formulae(conjectures).
 
-
-formula(
-	and(
-		KnowsEncr(dy,encr(email_server_url,public_server)),
-		KnowsEncr(dy,encr(email_log_in_page,public_server)),
-		KnowsEncr(dy,encr(pair(email,password),public_server)),
-		KnowsEncr(dy,encr(2step_verification,public_server)),
-		KnowsEncr(dy,encr(authentication_code,public_server)),
-		KnowsEncr(dy,encr(users_email_page,public_server)),
-
-		Knows(da1,email_server_url),
-		Knows(da1,email_log_in_page),
-		Knows(da1,email),
-		Knows(da1,password),
-		Knows(da1,2step_verification),
-		Knows(da1,code_message),
-		Knows(da1,authentication_code),
-		Knows(da1,users_email_page),
-
-		Knows(da2,email_server_url),
-		Knows(da2,email_log_in_page),
-		Knows(da2,email),
-		Knows(da2,password),
-		Knows(da2,2step_verification),
-		Knows(da2,authentication_code),
-		Knows(da2,users_email_page),
-
-		Knows(da3,code_message),
-
-		Knows(ma1,email),
-		Knows(ma1,password),
-		Knows(ma1,2step_verification),
-		Knows(ma1,authentication_code),
-		Knows(ma1,users_email_page),
-
-		Knows(ma1,code_message)
-
-
-	),
-attackers_knowledge).
+formula(Knows(da1,email_server_url),attacker_da1_knows_email_server_url).
+formula(KnowsEncr(dy,encr(email_server_url,public_server)),attacker_dy_knows_encr_email_server_url_public_server_).
+formula(KnowsEncr(dy,encr(email_log_in_page,public_server)),attacker_dy_knows_encr_email_log_in_page_public_server_).
+formula(Knows(da1,email_log_in_page),attacker_da1_knows_email_log_in_page).
+formula(Knows(da1,pair(email,password)),attacker_da1_knows_pair_email_password_).
+formula(KnowsEncr(dy,encr(pair(email,password),public_server)),attacker_dy_knows_encr_pair_email_password__public_server_).
+formula(KnowsEncr(dy,encr(2step_verification,public_server)),attacker_dy_knows_encr_2step_verification_public_server_).
+formula(Knows(da1,2step_verification),attacker_da1_knows_2step_verification).
+formula(Knows(da1,code_message),attacker_da1_knows_code_message).
+formula(Knows(da1,authentication_code),attacker_da1_knows_authentication_code).
+formula(KnowsEncr(dy,encr(authentication_code,public_server)),attacker_dy_knows_encr_authentication_code_public_server_).
+formula(KnowsEncr(dy,encr(users_email_page,public_server)),attacker_dy_knows_encr_users_email_page_public_server_).
+formula(Knows(da1,users_email_page),attacker_da1_knows_users_email_page).
 
 
 end_of_list.
 
 end_problem.
-

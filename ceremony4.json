@@ -1,57 +1,51 @@
-{ "db": [
+{ "ceremony": [
 
 
-{"peer1":"u_c", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"s", "msg":"email_server_url"},
+{"sender":"u_c", "layer":"L3", "attackers":[ {"attacker":"DA1","capability":"E"} ], "receiver":"s", "message":"email_server_url"},
 
-{"peer1":"u_c", "layer":"L2", "capab1":"E", "att1":"DA2", "peer2":"s", "msg":"email_server_url"},
+{"sender":"u_c", "layer":"L2", "attackers":[ {"attacker":"DA2","capability":"E"} ], "receiver":"s", "message":"email_server_url"},
 
-{"peer1":"u_c", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"s", "msg":"encr(email_server_url,public_server)"},
-
-
-
-{"peer1":"s", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"u_c", "msg":"encr(email_log_in_page,public_server)"},
-
-{"peer1":"s", "layer":"L2", "capab1":"E", "att1":"DA2", "peer2":"u_c", "msg":"email_log_in_page"},
-
-{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_c", "msg":"email_log_in_page"},
+{"sender":"u_c", "layer":"L1", "attackers":[ {"attacker":"DY","capability":"DY"} ], "receiver":"s", "message":"encr(email_server_url,public_server)"},
 
 
+{"sender":"s", "layer":"L1", "attackers":[ {"attacker":"DY","capability":"DY"} ], "receiver":"u_c", "message":"encr(email_log_in_page,public_server)"},
 
-{"peer1":"u_c", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"s", "msg":"pair(email,password)"},
+{"sender":"s", "layer":"L2", "attackers":[ {"attacker":"DA2","capability":"E"} ], "receiver":"u_c", "message":"email_log_in_page"},
 
-{"peer1":"u_c", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"s", "msg":"pair(email,password)"},
-
-{"peer1":"u_c", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"s", "msg":"encr(pair(email,password),public_server)"},
-
+{"sender":"s", "layer":"L3", "attackers":[ {"attacker":"DA1","capability":"E"} ], "receiver":"u_c", "message":"email_log_in_page"},
 
 
-{"peer1":"s", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"u_c", "msg":"encr(2step_verification,public_server)"},
+{"sender":"u_c", "layer":"L3", "attackers":[ {"attacker":"DA1","capability":"E"} ], "receiver":"s", "message":"pair(email,password)"},
 
-{"peer1":"s", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"u_c", "msg":"2step_verification"},
+{"sender":"u_c", "layer":"L2",  "attackers":[ {"attacker":"DA3","capability":"DY"},  {"attacker":"MA1","capability":"DY"} ], "receiver":"s", "message":"pair(email,password)"},
 
-{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_c", "msg":"2step_verification"},
-
-
-
-{"peer1":"s", "layer":"L2", "capab1":"DY", "att1":"DA3", "peer2":"u_p", "msg":"code_message"},
-
-{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_p", "msg":"code_message"},
+{"sender":"u_c", "layer":"L1", "attackers":[ {"attacker":"DY","capability":"DY"} ], "receiver":"s", "message":"encr(pair(email,password),public_server)"},
 
 
+{"sender":"s", "layer":"L1", "attackers":[ {"attacker":"DY","capability":"DY"} ], "receiver":"u_c", "message":"encr(2step_verification,public_server)"},
 
-{"peer1":"u_c", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"s", "msg":"authentication_code"},
+{"sender":"s", "layer":"L2",  "attackers":[ {"attacker":"DA3","capability":"DY"},  {"attacker":"MA1","capability":"DY"} ], "receiver":"u_c", "message":"2step_verification"},
 
-{"peer1":"u_c", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"s", "msg":"authentication_code"},
-
-{"peer1":"u_c", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"s", "msg":"encr(authentication_code,public_server)"},
-
+{"sender":"s", "layer":"L3", "attackers":[ {"attacker":"DA1","capability":"E"} ], "receiver":"u_c", "message":"2step_verification"},
 
 
-{"peer1":"s", "layer":"L1", "capab1":"DY", "att1":"DY", "peer2":"u_c", "msg":"encr(users_email_page,public_server)"},
+{"sender":"s", "layer":"L2", "attackers":[ {"attacker":"DA3","capability":"DY"} ], "receiver":"u_p", "message":"code_message"},
 
-{"peer1":"s", "layer":"L2", "capab1":"E", "att1":"DA2", "capab2":"DY", "att2":"MA1", "peer2":"u_c", "msg":"users_email_page"},
+{"sender":"s", "layer":"L3", "attackers":[ {"attacker":"DA1","capability":"E"} ], "receiver":"u_p", "message":"code_message"},
 
-{"peer1":"s", "layer":"L3", "capab1":"E", "att1":"DA1", "peer2":"u_c", "msg":"users_email_page"}
+
+{"sender":"u_c", "layer":"L3", "attackers":[ {"attacker":"DA1","capability":"E"} ], "receiver":"s", "message":"authentication_code"},
+
+{"sender":"u_c", "layer":"L2",  "attackers":[ {"attacker":"DA3","capability":"DY"},  {"attacker":"MA1","capability":"DY"} ], "receiver":"s", "message":"authentication_code"},
+
+{"sender":"u_c", "layer":"L1", "attackers":[ {"attacker":"DY","capability":"DY"} ], "receiver":"s", "message":"encr(authentication_code,public_server)"},
+
+
+{"sender":"s", "layer":"L1", "attackers":[ {"attacker":"DY","capability":"DY"} ], "receiver":"u_c", "message":"encr(users_email_page,public_server)"},
+
+{"sender":"s", "layer":"L2",  "attackers":[ {"attacker":"DA3","capability":"DY"},  {"attacker":"MA1","capability":"DY"} ], "receiver":"u_c", "message":"users_email_page"},
+
+{"sender":"s", "layer":"L3", "attackers":[ {"attacker":"DA1","capability":"E"} ], "receiver":"u_c", "message":"users_email_page"}
 
 
 ]}
